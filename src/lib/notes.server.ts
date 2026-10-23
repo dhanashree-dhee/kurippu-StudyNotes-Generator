@@ -1,19 +1,18 @@
-import { STUDY_NOTES_SCHEMA, type NotesLanguage, type NotesResult, type StudyNotes } from "./notes-types";
+import {
+  STUDY_NOTES_SCHEMA,
+  getLanguage,
+  type NotesLanguage,
+  type NotesResult,
+  type StudyNotes,
+} from "./notes-types";
 import { youTubeWatchUrl } from "./youtube";
 
 const GATEWAY_URL = "https://ai.gateway.lovable.dev/v1/chat/completions";
 // Gemini watches the YouTube video directly: frames, audio track and on-screen text.
 const MODEL = "google/gemini-3.8-flash";
 
-const LANGUAGE_RULES: Record<NotesLanguage, string> = {
-  english: "Write all notes in clear, simple English.",
-  tamil:
-    "Write all notes in Tamil script (தமிழ்). Keep technical/scientific terms in English inside brackets after the Tamil word, e.g. ஒளிச்சேர்க்கை (Photosynthesis).",
-  tanglish:
-    "Write all notes in Tanglish — Tamil language written using English letters (e.g. 'Ithu romba important concept'). Keep technical terms in English.",
-};
-
 function systemPrompt(language: NotesLanguage) {
+  const rule = getLanguage(language)?.rule ?? "Write all notes in clear, simple English.";
   return `You are an expert teacher who turns lecture videos into exam-ready study notes for students.
 
 WATCH THE WHOLE VIDEO and use EVERY source of information available:
@@ -22,7 +21,7 @@ WATCH THE WHOLE VIDEO and use EVERY source of information available:
 - Visuals: whiteboard or blackboard writing, handwriting, drawings, diagrams, slides, animations, experiments and demonstrations.
 Some videos have NO audio or only background music, and NO captions — the lecture is taught only visually. In that case rely completely on what is shown on screen: read the written text, describe the drawings, and follow the steps being demonstrated. Never say you cannot make notes; always produce full notes from whatever the video shows.
 
-${LANGUAGE_RULES[language]}
+OUTPUT LANGUAGE (very important): ${rule} The video may be in any language — always translate the notes into this output language. Diagram labels must also be in this language. Do not change the JSON field names or the sourcesUsed values.
 
 Fill every field:
 - title: the lecture topic. subject: the subject area (e.g. "Physics · Class 11").
