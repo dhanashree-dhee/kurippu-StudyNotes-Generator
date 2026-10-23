@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { notesToMarkdown, type StudyNotes } from "@/lib/notes-types";
+import { getLanguage, notesToMarkdown, type StudyNotes } from "@/lib/notes-types";
 import { youTubeThumbnail, youTubeWatchUrl } from "@/lib/youtube";
 import { MermaidDiagram } from "./MermaidDiagram";
 
