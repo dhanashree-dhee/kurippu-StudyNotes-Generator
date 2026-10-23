@@ -60,7 +60,16 @@ function Section({
   );
 }
 
-export function NotesView({ notes, videoId }: { notes: StudyNotes; videoId: string }) {
+export function NotesView({
+  notes,
+  videoId,
+  language,
+}: {
+  notes: StudyNotes;
+  videoId: string;
+  language?: string;
+}) {
+  const rtl = !!(language && getLanguage(language)?.rtl);
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState<number | null>(null);
 
