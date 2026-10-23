@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { NotesView } from "@/components/notes/NotesView";
 import { generateStudyNotes } from "@/lib/notes.functions";
-import { LANGUAGE_LABELS, type NotesLanguage, type StudyNotes } from "@/lib/notes-types";
+import { LANGUAGES, getLanguage, type NotesLanguage, type StudyNotes } from "@/lib/notes-types";
 import { extractYouTubeId, youTubeThumbnail } from "@/lib/youtube";
 
 export const Route = createFileRoute("/")({
@@ -178,21 +178,36 @@ function Index() {
               </div>
 
               <div className="mt-4">
-                <span className="text-sm font-semibold">Notes language</span>
-                <div className="mt-2 grid grid-cols-3 gap-1 rounded-xl bg-secondary p-1">
-                  {(Object.keys(LANGUAGE_LABELS) as NotesLanguage[]).map((l) => (
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="text-sm font-semibold">Notes language</span>
+                  <span className="text-xs text-muted-foreground">
+                    Video can be in any language
+                  </span>
+                </div>
+                <div
+                  role="radiogroup"
+                  aria-label="Notes language"
+                  className="mt-2 grid grid-cols-3 gap-1 rounded-xl bg-secondary p-1 sm:grid-cols-5"
+                >
+                  {LANGUAGES.map((l) => (
                     <button
-                      key={l}
+                      key={l.id}
                       type="button"
-                      onClick={() => setLanguage(l)}
-                      aria-pressed={language === l}
-                      className={`rounded-lg py-2 text-sm font-medium transition-all ${
-                        language === l
-                          ? "bg-card text-foreground shadow-paper"
-                          : "text-muted-foreground hover:text-foreground"
+                      role="radio"
+                      onClick={() => setLanguage(l.id)}
+                      aria-checked={language === l.id}
+                      className={`flex min-h-12 flex-col items-center justify-center rounded-lg px-1 py-1.5 text-center transition-all ${
+                        language === l.id
+                          ? "bg-card text-foreground shadow-paper ring-2 ring-primary"
+                          : "text-muted-foreground hover:bg-card/60 hover:text-foreground"
                       }`}
                     >
-                      {LANGUAGE_LABELS[l]}
+                      <span className="text-sm font-semibold leading-tight">{l.native}</span>
+                      {l.native !== l.english && (
+                        <span className="mt-0.5 text-[10px] leading-tight opacity-80">
+                          {l.english}
+                        </span>
+                      )}
                     </button>
                   ))}
                 </div>
