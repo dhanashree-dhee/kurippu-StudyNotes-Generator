@@ -10,7 +10,7 @@
  */
 
 @theme inline {
-  --font-sans: "Plus Jakarta Sans", "Noto Sans Tamil", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Noto Sans Tamil", "Noto Sans Devanagari", "Noto Sans Telugu", "Noto Sans Kannada", "Noto Sans Malayalam", "Noto Sans Bengali", "Noto Sans Gujarati", "Noto Sans Gurmukhi", "Noto Sans Oriya", "Noto Nastaliq Urdu", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Fraunces", "Noto Serif Tamil", ui-serif, Georgia, serif;
   --font-hand: "Caveat", "Noto Sans Tamil", cursive;
 
