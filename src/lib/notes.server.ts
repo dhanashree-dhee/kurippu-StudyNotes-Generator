@@ -102,7 +102,7 @@ export async function generateNotesFromVideo(
   videoId: string,
   language: NotesLanguage,
 ): Promise<NotesResult> {
-  const apiKey = process.env.LOVABLE_API_KEY;
+  const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) return { ok: false, error: "The AI service isn't configured for this app." };
 
   let response: Response;
