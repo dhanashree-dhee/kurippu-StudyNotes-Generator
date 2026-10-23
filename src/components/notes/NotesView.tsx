@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { notesToMarkdown, type StudyNotes } from "@/lib/notes-types";
+import { getLanguage, notesToMarkdown, type StudyNotes } from "@/lib/notes-types";
 import { youTubeThumbnail, youTubeWatchUrl } from "@/lib/youtube";
 import { MermaidDiagram } from "./MermaidDiagram";
 
@@ -60,7 +60,16 @@ function Section({
   );
 }
 
-export function NotesView({ notes, videoId }: { notes: StudyNotes; videoId: string }) {
+export function NotesView({
+  notes,
+  videoId,
+  language,
+}: {
+  notes: StudyNotes;
+  videoId: string;
+  language?: string;
+}) {
+  const rtl = !!(language && getLanguage(language)?.rtl);
   const [copied, setCopied] = useState(false);
   const [open, setOpen] = useState<number | null>(null);
 
@@ -86,7 +95,7 @@ export function NotesView({ notes, videoId }: { notes: StudyNotes; videoId: stri
   };
 
   return (
-    <article className="space-y-8">
+    <article className="space-y-8" dir={rtl ? "rtl" : undefined}>
       {/* Title card */}
       <header className="bg-ruled overflow-hidden rounded-2xl border shadow-paper">
         <div className="flex gap-3 p-4 pl-12 sm:p-6 sm:pl-14">
