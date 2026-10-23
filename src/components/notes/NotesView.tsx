@@ -95,7 +95,7 @@ export function NotesView({
   };
 
   return (
-    <article className="space-y-8">
+    <article className="space-y-8" dir={rtl ? "rtl" : undefined}>
       {/* Title card */}
       <header className="bg-ruled overflow-hidden rounded-2xl border shadow-paper">
         <div className="flex gap-3 p-4 pl-12 sm:p-6 sm:pl-14">
